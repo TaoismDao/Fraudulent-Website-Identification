@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>诈骗网站/平台群组索引 - Fraudulent Website Index</title>
+  <style>
+    :root {
+      --bg-primary: #0f1419;
+      --bg-secondary: #1a2332;
+      --bg-card: #1e2a3a;
+      --text-primary: #e6edf3;
+      --text-secondary: #8b949e;
+      --accent-warning: #f0883e;
+      --accent-danger: #f85149;
+      --accent-success: #3fb950;
+      --border-color: #30363d;
+      --shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .search-box {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.85rem 1rem 0.85rem 2.75rem;
+      font-size: 1rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      color: var(--text-primary);
+      transition: border-color 0.2s;
+    }
+
+    .search-box input::placeholder {
+      color: var(--text-secondary);
+    }
+
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--accent-warning);
+    }
+
+    .search-box::before {
+      content: "🔍";
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1rem;
+      opacity: 0.7;
+    }
+
+    .stats {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-badge {
+      background: var(--bg-secondary);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .stat-badge strong {
+      color: var(--accent-warning);
+    }
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .item:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow);
+    }
+
+    .item-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .item-name {
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--text-primary);
+    }
+
+    .item-type {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      background: rgba(248, 81, 73, 0.2);
+      color: var(--accent-danger);
+    }
+
+    .item-type.platform { background: rgba(248, 136, 62, 0.2); color: var(--accent-warning); }
+    .item-type.group { background: rgba(63, 185, 80, 0.2); color: var(--accent-success); }
+
+    .item-url {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      word-break: break-all;
+    }
+
+    .item-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-top: 0.5rem;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: var(--text-secondary);
+    }
+
+    .empty-state p {
+      margin-bottom: 0.5rem;
+    }
+
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    footer a {
+      color: var(--accent-warning);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>⚠️ 诈骗网站/平台群组索引</h1>
+      <p class="subtitle">Fraudulent Website & Platform Group Index · 请谨慎核实，谨防上当</p>
+    </header>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="输入关键词搜索（网站名、URL、描述、类型）..." autocomplete="off">
+    </div>
+
+    <div class="stats">
+      <span class="stat-badge">共 <strong id="totalCount">0</strong> 条记录</span>
+      <span class="stat-badge">当前显示 <strong id="filteredCount">0</strong> 条</span>
+    </div>
+
+    <div class="list" id="listContainer">
+      <!-- 动态渲染 -->
+    </div>
+
+    <footer>
+      <p>数据仅供参考，请勿轻信任何可疑链接。发现新诈骗信息可提交 <a href="#" id="repoLink" target="_blank" rel="noopener">Issue/PR</a></p>
+    </footer>
+  </div>
+
+  <script>
+    // 仓库地址 - 部署后请修改为你的 GitHub 仓库 URL（用于 Issue/PR 链接）
+    const REPO_URL = "https://github.com/YOUR_USERNAME/Fraudulent-Website-Identification";
+    const repoLink = document.getElementById("repoLink");
+    if (repoLink && REPO_URL && !REPO_URL.includes("YOUR_USERNAME")) {
+      repoLink.href = REPO_URL + "/issues";
+    }
+
+    // 诈骗网站/平台数据 - 可在此添加或通过外部 JSON 加载
+    const FRAUD_DATA = [
+      {
+        name: "虚假投资平台示例A",
+        url: "https://fake-investment-a.com",
+        type: "website",
+        desc: "冒充正规投资平台，诱导用户充值后无法提现"
+      },
+      {
+        name: "假冒客服群组B",
+        url: "https://t.me/fake_support_group",
+        type: "group",
+        desc: "假冒官方客服，以解冻账户为由骗取验证码"
+      },
+      {
+        name: "虚假交易平台C",
+        url: "https://scam-exchange-c.net",
+        type: "platform",
+        desc: "虚假加密货币交易所，跑路前诱导大额充值"
+      },
+      {
+        name: "钓鱼网站D",
+        url: "https://phishing-wallet-d.com",
+        type: "website",
+        desc: "仿造钱包登录页，窃取助记词和私钥"
+      },
+      {
+        name: "杀猪盘引流群",
+        url: "https://t.me/pig_butcher_group",
+        type: "group",
+        desc: "通过交友诱导投资，典型杀猪盘套路"
+      }
+    ];
+
+    const listContainer = document.getElementById("listContainer");
+    const searchInput = document.getElementById("searchInput");
+    const totalCountEl = document.getElementById("totalCount");
+    const filteredCountEl = document.getElementById("filteredCount");
+
+    const typeLabels = {
+      website: "网站",
+      platform: "平台",
+      group: "群组"
+    };
+
+    function renderItem(item) {
+      const typeClass = item.type || "website";
+      const typeLabel = typeLabels[typeClass] || item.type;
+      return `
+        <article class="item" data-name="${escapeHtml(item.name)}" data-url="${escapeHtml(item.url)}" data-desc="${escapeHtml(item.desc || '')}">
+          <div class="item-header">
+            <span class="item-name">${escapeHtml(item.name)}</span>
+            <span class="item-type ${typeClass}">${escapeHtml(typeLabel)}</span>
+          </div>
+          <div class="item-url">${escapeHtml(item.url)}</div>
+          ${item.desc ? `<div class="item-desc">${escapeHtml(item.desc)}</div>` : ""}
+        </article>
+      `;
+    }
+
+    function escapeHtml(text) {
+      if (!text) return "";
+      const div = document.createElement("div");
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function getSearchKeywords() {
+      return searchInput.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    }
+
+    function matchesItem(item, keywords) {
+      if (keywords.length === 0) return true;
+      const searchable = [
+        item.name,
+        item.url,
+        item.desc || "",
+        typeLabels[item.type] || item.type || ""
+      ].join(" ").toLowerCase();
+      return keywords.every(kw => searchable.includes(kw));
+    }
+
+    function render() {
+      const keywords = getSearchKeywords();
+      const filtered = FRAUD_DATA.filter(item => matchesItem(item, keywords));
+
+      totalCountEl.textContent = FRAUD_DATA.length;
+      filteredCountEl.textContent = filtered.length;
+
+      if (filtered.length === 0) {
+        listContainer.innerHTML = `
+          <div class="empty-state">
+            <p>未找到匹配的记录</p>
+            <p>尝试更换关键词或减少筛选条件</p>
+          </div>
+        `;
+        return;
+      }
+
+      listContainer.innerHTML = filtered.map(renderItem).join("");
+    }
+
+    searchInput.addEventListener("input", render);
+    searchInput.addEventListener("keyup", (e) => {
+      if (e.key === "Escape") {
+        searchInput.value = "";
+        render();
+      }
+    });
+
+    // 初始渲染
+    render();
+  </script>
+</body>
+</html>
